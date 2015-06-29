@@ -11,11 +11,11 @@ On my computer the following worked:
 
 At first commit, this should give you three numbers:
 
-1. Number of pages in the XML dump with a `{{citation needed` tag.
+1. Number of pages in the XML dump with a `{{citation needed}}` tag.
 
 2. Total number of pages in the XML dump. 
 
-3. Total number of `{{citation needed` tags in the XML dump.
+3. Total number of `{{citation needed}}` tags in the XML dump.
 
 On my computer ...
 
