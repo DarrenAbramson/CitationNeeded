@@ -23,11 +23,9 @@ It will also create a file with a name like the following:
 
 At present, this is a table with three columns:
 
--`pageName`
-
--`tagContents`
-
--`precedingSentence`
+- `pageName`
+- `tagContents`
+- `precedingSentence`
 
 `pageName` is the name of a Wikipedia page that contains a citation needed tag. `tagcontents` is the information contained in the citation needed tag. In virtually every case this contains date information for when the tag was created. `precedingSentence` is, rather arbitrarily, the 30 characters preceding the tag.
 
