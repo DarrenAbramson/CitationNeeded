@@ -1,7 +1,7 @@
 # CitationNeeded
 The purpose of this code is to provide an example of a behavioral analysis of Wikipedia. The intended application is for providing empirical justification for a controversial epistemological category.
 
-You'll need `bzip2.jar` and `wikixmlj-r43.jar` extracted to where you compile (and run?). 
+You'll need `bzip2.jar` and `wikixmlj-r43.jar` extracted to where you compile. 
 
 On my computer the following worked:
 
