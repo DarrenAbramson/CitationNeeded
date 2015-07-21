@@ -9,7 +9,7 @@ On my computer the following worked:
 
 `java Main "WikipediaXML_Compressed.bz2"`
 
-At first commit, this should give you three numbers:
+At the command line, this should give you three numbers:
 
 1. Number of pages in the XML dump with a `{{citation needed}}` tag.
 
@@ -17,5 +17,22 @@ At first commit, this should give you three numbers:
 
 3. Total number of `{{citation needed}}` tags in the XML dump.
 
-On my computer ...
+It will also create a file with a name like the following:
 
+`2015.07.21 AD at 13:42:17 ADT.WikiDataFileName.bz2.csv`
+
+At present, this is a table with three columns:
+
+-`pageName`
+-`tagContents`
+-`precedingSentence`
+
+`pageName` is the name of a Wikipedia page that contains a citation needed tag. `tagcontents` is the information contained in the citation needed tag. In virtually every case this contains date information for when the tag was created. `precedingSentence` is, rather arbitrarily, the 30 characters preceding the tag.
+
+In R studio, the following code imports the csv file into a table with the correct dimensions, matching the terminal output for number of tags (excel seems to mangle some of the delimiters).
+
+`cnTable <- test read.csv("2015.07.21 AD at 13:42:17 ADT.WikiDataFileName.bz2.csv", header=TRUE, quote="")`
+
+It may be preferable to add a `stringsAsFactors=FALSE` argument.
+
+The next important step is to strip out and import date information. I think there's already enough information to get halflife from a single dump.
