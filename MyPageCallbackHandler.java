@@ -16,6 +16,7 @@ class MyPageCallbackHandler implements PageCallbackHandler
     private static final String COMMA_DELIMITER = ",";
     private static final String NEW_LINE_SEPARATOR = "\n";
     private static final String FILE_HEADER = "pageName,tagContents,precedingSentence";
+    private static final int PRECEDING_SENTENCE_LENGTH = 30;
     
     // Advance amount is the same regardless of case.
     private int ADVANCE_AMOUNT = "{{citation needed".length();
@@ -81,8 +82,17 @@ class MyPageCallbackHandler implements PageCallbackHandler
             String tagContents = pageText.substring(cnIndex, secondIndex + 2);
             tagContents = tagContents.replace("\n","").replace(",","").trim();
             
-            String precedingSentence = pageText.substring(cnIndex - 30, cnIndex);
-            precedingSentence = precedingSentence.replace("\n","").replace(",","").trim();
+            int precedingStartingIndex = cnIndex - PRECEDING_SENTENCE_LENGTH;
+            
+            String precedingSentence;
+            
+            if (precedingStartingIndex < 0)
+                precedingSentence = "Less than " + PRECEDING_SENTENCE_LENGTH + " characters available.";
+            else
+            {
+                precedingSentence = pageText.substring(precedingStartingIndex, cnIndex);
+                precedingSentence = precedingSentence.replace("\n","").replace(",","").trim();
+            }
             
             
             fileWriter.append(pageName);
