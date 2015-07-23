@@ -87,7 +87,10 @@ class MyPageCallbackHandler implements PageCallbackHandler
             String precedingSentence;
             
             if (precedingStartingIndex < 0)
-                precedingSentence = "Less than " + PRECEDING_SENTENCE_LENGTH + " characters available.";
+            {
+                System.out.println("cnIndex was " + cnIndex + " so I saved precedingSentence from 0 to cnIndex." + " The page was " + pageName + ".");
+                precedingSentence = pageText.substring(0, cnIndex);
+            }
             else
             {
                 precedingSentence = pageText.substring(precedingStartingIndex, cnIndex);
@@ -103,14 +106,13 @@ class MyPageCallbackHandler implements PageCallbackHandler
             
             fileWriter.append(precedingSentence);
             fileWriter.append(NEW_LINE_SEPARATOR);
-            
-            	
-            
-        
+       
         }
         catch(Exception e)
         {
-            e.printStackTrace();
+            System.out.println("Error! We caught an exception. cnIndex was " + cnIndex +
+                               " on page " + wikiPage.getTitle() + ".");
+            // e.printStackTrace();
         }
         
     }
