@@ -17,11 +17,7 @@ At the command line, this should give you three numbers:
 
 3. Total number of `{{citation needed}}` tags in the XML dump.
 
-4. Any malformed 'citation needed' items. At present, there are only two, both of which are found on
-
-`https://en.wikipedia.org/wiki/Wikipedia:Biographies_of_living_persons/Risk_lists/List_2`
-
-in the form of partially quoted citation needed tags.
+4. Any malformed 'citation needed' items. At present, there are only two, both of which are found on `https://en.wikipedia.org/wiki/Wikipedia:Biographies_of_living_persons/Risk_lists/List_2` in the form of partially quoted citation needed tags.
 
 5. Any tags that appear on a page prior to `PRECEDING_SENTENCE_LENGTH` characters from the beginning. Note that this includes markup characters. Each such page, with the character number of the first appearance of a citation needed tag, is listed in the output.
 
