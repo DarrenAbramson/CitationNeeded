@@ -9,7 +9,7 @@ On my computer the following worked:
 
 `java Main "WikipediaXML_Compressed.bz2"`
 
-At the command line, this should give you three numbers:
+At the command line, this should give you three numbers along with other possible output:
 
 1. Number of pages in the XML dump with a `{{citation needed}}` tag.
 
