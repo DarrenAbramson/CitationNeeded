@@ -14,7 +14,7 @@ The processing was done in Java with use of the WikiXMLJ package by Google. Info
 
 This document was generated from a markdown file including all analysis, [Analysis.Rmd] (https://github.com/DarrenAbramson/CitationNeeded/blob/master/Analysis.Rmd).
 
-```{r Process_2013_data, echo=FALSE, include=FALSE}
+```{r Process_2013_data, echo=FALSE}
 library(stringr)
 library(zoo)
 
@@ -69,12 +69,12 @@ cnTableWithDatesClean <- cnTableWithDates[which(cnTableWithDates$age < 144 & cnT
 ```
 
 Histogram for 2013 data:
-```{r Make_2013_histogram, echo=FALSE, include=FALSE}
+```{r Make_2013_histogram, echo=FALSE}
 hist(cnTableWithDatesClean$age)
 ```
 
 
-```{r Process_2015_data, echo=FALSE, include=FALSE}
+```{r Process_2015_data, echo=FALSE}
 cnTable <- read.csv("2015.07.22 AD at 14:47:27 ADT.enwiki-20150602-pages-articles.xml.bz2.csv", header=TRUE, quote="", stringsAsFactors=FALSE)
 
 cnTableWithDates <- cnTable[grep("date=", cnTable$tagContents), ]
@@ -113,7 +113,7 @@ cnTableWithDatesClean <- cnTableWithDates[which(cnTableWithDates$age < 144 & cnT
 ```
 
 Histogram for 2015 data:
-```{r Make_2015_Histogram, echo=FALSE, include=FALSE}
+```{r Make_2015_Histogram, echo=FALSE}
 hist(cnTableWithDatesClean$age)
 ```
 
