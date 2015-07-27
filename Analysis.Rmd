@@ -1,0 +1,120 @@
+---
+title: "Citation Needed -- Analysis"
+author: "Darren Abramson"
+date: "July 23, 2015"
+output: html_document
+---
+
+The data analysis for the facts and figures below consists of two stages:
+
+1. Taking compressed complete dumps of the English wikipedia and processing them to extract citation needed tags
+2. Analyzing the extracted tags in R.
+
+The processing was done in Java with use of the WikiXMLJ package by Google. Information on the processing can be found in the [README] github.com/DarrenAbramson/CitationNeeded/).
+
+This document was generated from a markdown file including all analysis, [Analysis.Rmd] (https://github.com/DarrenAbramson/CitationNeeded/blob/master/Analysis.Rmd).
+
+```{r Process_2013_data, echo=FALSE, include=FALSE}
+library(stringr)
+library(zoo)
+
+cnTable <- read.csv("2015.07.22 AD at 10:44:31 ADT.enwiki-20130805-pages-articles.xml.bz2.csv", header=TRUE, quote="", stringsAsFactors=FALSE)
+
+cnTableWithDates <- cnTable[grep("date=", cnTable$tagContents), ]
+
+getDateString <- function (x) 
+{
+  startIndex <- str_locate (x, "date=")[2] + 1
+  endIndex <- str_locate(x, "\\}\\}") - 1
+  dateInfo <- substr(x, startIndex, endIndex)
+  dateInfo
+}
+
+myYearMon <- function (x)
+{
+  as.yearmon(x, "%B %Y")
+}
+
+trim.leading <- function (x)  sub("^\\s+", "", x)
+
+# Get data just extracts the string of the tagContents beyond "date="
+
+cnTableWithDates$dateString <- sapply(cnTableWithDates$tagContents, getDateString)
+
+# Trims it down to the 20 next characters
+
+cnTableWithDates$dateString <- strtrim(cnTableWithDates$dateString, 20)
+
+# Trim initial white space
+
+cnTableWithDates$dateString <- sapply(cnTableWithDates$dateString, trim.leading)
+
+# Assume standard format now with initial string consisting of Month and Year
+
+cnTableWithDates$YearMonDate <- sapply(cnTableWithDates$dateString, myYearMon)
+
+# Age is difference in months from date of dump
+
+cnTableWithDates$age <- (as.numeric(as.yearmon("Aug 2013")) - as.numeric(cnTableWithDates$YearMonDate)) * 12
+
+# Remove rows with na age.
+
+cnTableWithDatesClean <- cnTableWithDates[which(!is.na(cnTableWithDates$age)),]
+
+# Remove malformed rows, i.e. age of tag > age of Wikipedia. or age of tag < 0
+
+cnTableWithDatesClean <- cnTableWithDates[which(cnTableWithDates$age < 144 & cnTableWithDates$age >= 0),]
+
+# NOTE: while crude, this results in over 95% of tags extracting successfully.
+```
+
+Histogram for 2013 data:
+```{r Make_2013_histogram, echo=FALSE, include=FALSE}
+hist(cnTableWithDatesClean$age)
+```
+
+
+```{r Process_2015_data, echo=FALSE, include=FALSE}
+cnTable <- read.csv("2015.07.22 AD at 14:47:27 ADT.enwiki-20150602-pages-articles.xml.bz2.csv", header=TRUE, quote="", stringsAsFactors=FALSE)
+
+cnTableWithDates <- cnTable[grep("date=", cnTable$tagContents), ]
+
+trim.leading <- function (x)  sub("^\\s+", "", x)
+
+# Get data just extracts the string of the tagContents beyond "date="
+
+cnTableWithDates$dateString <- sapply(cnTableWithDates$tagContents, getDateString)
+
+# Trims it down to the 20 next characters
+
+cnTableWithDates$dateString <- strtrim(cnTableWithDates$dateString, 20)
+
+# Trim initial white space
+
+cnTableWithDates$dateString <- sapply(cnTableWithDates$dateString, trim.leading)
+
+# Assume standard format now with initial string consisting of Month and Year
+
+cnTableWithDates$YearMonDate <- sapply(cnTableWithDates$dateString, myYearMon)
+
+# Age is difference in months from date of dump
+
+cnTableWithDates$age <- (as.numeric(as.yearmon("Jun 2015")) - as.numeric(cnTableWithDates$YearMonDate)) * 12
+
+# Remove rows with na age.
+
+cnTableWithDatesClean <- cnTableWithDates[which(!is.na(cnTableWithDates$age)),]
+
+# Remove malformed rows, i.e. age of tag > age of Wikipedia. or age of tag < 0
+
+cnTableWithDatesClean <- cnTableWithDates[which(cnTableWithDates$age < 144 & cnTableWithDates$age >= 0),]
+
+# NOTE: while crude, this results in over 95% of tagContents extracting successfully to year/month dates.
+```
+
+Histogram for 2015 data:
+```{r Make_2015_Histogram, echo=FALSE, include=FALSE}
+hist(cnTableWithDatesClean$age)
+```
+
+Other interesting information:
