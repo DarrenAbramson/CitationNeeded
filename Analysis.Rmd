@@ -10,11 +10,11 @@ The data analysis for the facts and figures below consists of two stages:
 1. Taking compressed complete dumps of the English wikipedia and processing them to extract citation needed tags
 2. Analyzing the extracted tags in R.
 
-The processing was done in Java with use of the WikiXMLJ package by Google. Information on the processing can be found in the [README] github.com/DarrenAbramson/CitationNeeded/).
+The processing was done in Java with use of the wikixmlj package by Google. Information on the processing can be found in the [README](https://github.com/DarrenAbramson/CitationNeeded/).
 
-This document was generated from a markdown file including all analysis, [Analysis.Rmd] (https://github.com/DarrenAbramson/CitationNeeded/blob/master/Analysis.Rmd).
+This document was generated from a markdown file including all analysis, [Analysis.Rmd](https://github.com/DarrenAbramson/CitationNeeded/blob/master/Analysis.Rmd).
 
-```{r Process_2013_data, echo=FALSE}
+```{r Process_2013_data, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
 library(stringr)
 library(zoo)
 
@@ -65,6 +65,8 @@ cnTableWithDatesClean <- cnTableWithDates[which(!is.na(cnTableWithDates$age)),]
 
 cnTableWithDatesClean <- cnTableWithDates[which(cnTableWithDates$age < 144 & cnTableWithDates$age >= 0),]
 
+dataFrom2013 <- cnTableWithDatesClean
+
 # NOTE: while crude, this results in over 95% of tags extracting successfully.
 ```
 
@@ -74,7 +76,7 @@ hist(cnTableWithDatesClean$age)
 ```
 
 
-```{r Process_2015_data, echo=FALSE}
+```{r Process_2015_data, echo=FALSE, cache=TRUE}
 cnTable <- read.csv("2015.07.22 AD at 14:47:27 ADT.enwiki-20150602-pages-articles.xml.bz2.csv", header=TRUE, quote="", stringsAsFactors=FALSE)
 
 cnTableWithDates <- cnTable[grep("date=", cnTable$tagContents), ]
@@ -110,6 +112,8 @@ cnTableWithDatesClean <- cnTableWithDates[which(!is.na(cnTableWithDates$age)),]
 cnTableWithDatesClean <- cnTableWithDates[which(cnTableWithDates$age < 144 & cnTableWithDates$age >= 0),]
 
 # NOTE: while crude, this results in over 95% of tagContents extracting successfully to year/month dates.
+
+dataFrom2015 <- cnTableWithDatesClean
 ```
 
 Histogram for 2015 data:
@@ -118,3 +122,9 @@ hist(cnTableWithDatesClean$age)
 ```
 
 Other interesting information:
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+# Load in hard coded information from .log files for each data set. These will be uploaded to the repository.
+
+
+```

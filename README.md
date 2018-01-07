@@ -1,4 +1,11 @@
 # CitationNeeded
+
+A completed run of `Analysis.rmd` can be found  [http://darrenabramson.github.io/CitationNeeded/Analysis.html](here). 
+The results show pretty clearly that unless some coordinated top-down plan is
+initiated, `citation needed` tagged edits tend to just remain in Wikipedia. 
+I'm not sure this is a bad thing.
+
+
 The purpose of this code is to provide an example of a behavioral analysis of Wikipedia. The intended application is for providing empirical justification for a controversial epistemological category.
 
 You'll need `bzip2.jar` and `wikixmlj-r43.jar` extracted to where you compile. 
