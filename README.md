@@ -1,6 +1,7 @@
 # CitationNeeded
 
-A completed run of `Analysis.rmd` can be found  [http://darrenabramson.github.io/CitationNeeded/Analysis.html](here). 
+A completed run of `Analysis.rmd` can be found [here]  
+(http://darrenabramson.github.io/CitationNeeded/Analysis.html). 
 The results show pretty clearly that unless some coordinated top-down plan is
 initiated, `citation needed` tagged edits tend to just remain in Wikipedia. 
 I'm not sure this is a bad thing.
